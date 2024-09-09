@@ -1,0 +1,129 @@
+### RANDOM LISTS
+
+================
+n = 10
+----------------
+alg    t (ms)    
+----------------
+alg_a  0.00596   
+alg_b  0.00525   
+alg_c  0.0062    
+alg_d  0.0114    
+alg_e  0.00525   
+----------------
+
+================
+n = 100
+----------------
+alg    t (ms)    
+----------------
+alg_a  0.575     
+alg_b  0.16      
+alg_c  1.1       
+alg_d  0.205     
+alg_e  0.426     
+----------------
+
+================
+n = 250
+----------------
+alg    t (ms)    
+----------------
+alg_a  1.7       
+alg_b  0.287     
+alg_c  3.55      
+alg_d  0.485     
+alg_e  2.42      
+----------------
+
+================
+n = 1000
+----------------
+alg    t (ms)    
+----------------
+alg_a  28.8      
+alg_b  1.58      
+alg_c  66.8      
+alg_d  2.36      
+alg_e  49        
+----------------
+
+================
+n = 1500
+----------------
+alg    t (ms)    
+----------------
+alg_a  66.2      
+alg_b  2.56      
+alg_c  151       
+alg_d  3.79      
+alg_e  107       
+----------------
+
+NOTES:
+- alg_b and alg_d are much faster than the other three.
+    These are merge and quick sort, which are O(nlogn).
+- alg_a faster than alg_e faster than alg_c.
+    These are bubble, selection, and insertion sort, which are O(n^2).
+
+### DIFFERENTIATING BETWEEN BUBBLE, SELECTION, AND INSERTION sort
+- Bubble and insertion sort are adaptive. 
+- If we have a lot of numbers that are in order, except for one, then bubble sort will be extremely quick.
+- Let's try this;
+
+- Large number at start (bubble sort loves this) at n=1000
+
+================
+n = 1000
+----------------
+alg    t (ms)    
+----------------
+alg_a  38.3      
+alg_b  17.7      
+alg_c  0.261     
+alg_d  2.21      
+alg_e  0.624     
+----------------
+
+- Small number at end (bubble sort hates this) at n=1000
+
+================
+n = 1000
+----------------
+alg    t (ms)    
+----------------
+alg_a  32        
+alg_b  44.2      
+alg_c  37.4      
+alg_d  1.64      
+alg_e  0.488     
+----------------
+
+- In the first case, bubble and insertion sort (c and e) both speed up.
+- In the second case, only insertion (e) speeds up.
+    - alg_a is selection (not adaptive)
+    - alg_c is bubble (only adaptive if big at bottom)
+    - alg_e is insertion (adaptive in both cases)
+
+### DIFFERENTIATING BETWEEN QUICK AND MERGE SORT
+- This leaves us with just alg_b and alg_d being either quick or merge sort.
+- Given that quicksort uses the last element in a list as a pivot,
+- a quicksort alg will need to create highly unbalanced partitions,
+- creating unnecessary operations that mergesort would skip.
+
+- Let's try a perfectly ordered list at n=1500:
+
+================
+n = 1500
+----------------
+alg    t (ms)    
+----------------
+alg_a  72.8      
+alg_b  48.1      
+alg_c  0.118     
+alg_d  2.55      
+alg_e  0.466     
+----------------
+
+- alg_b drops the ball, and alg_d blazes ahead.
+    alg_b is quicksort, and alg_d is mergesort.
